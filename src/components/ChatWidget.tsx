@@ -34,7 +34,6 @@ export function ChatWidget({ endpoint = ENDPOINT }: { endpoint?: string }) {
   const [turns, setTurns] = useState<Turn[]>([]);
   const [draft, setDraft] = useState('');
   const [busy, setBusy] = useState(false);
-  const [streaming, setStreaming] = useState(false);
   const fabRef = useRef<HTMLButtonElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const logRef = useRef<HTMLDivElement>(null);
@@ -65,6 +64,9 @@ export function ChatWidget({ endpoint = ENDPOINT }: { endpoint?: string }) {
   }, [open]);
 
   if (!endpoint) return null;
+
+  // Waiting on the first words of a reply (the assistant bubble appears once they arrive).
+  const waiting = busy && turns.at(-1)?.role === 'user';
 
   const dismissHint = () => {
     hintDismissed.current = true;
@@ -98,7 +100,6 @@ export function ChatWidget({ endpoint = ENDPOINT }: { endpoint?: string }) {
 
       const reader = res.body.getReader();
       const decoder = new TextDecoder();
-      setStreaming(true);
       for (;;) {
         const { done, value } = await reader.read();
         if (done) break;
@@ -118,7 +119,6 @@ export function ChatWidget({ endpoint = ENDPOINT }: { endpoint?: string }) {
       );
     } finally {
       setBusy(false);
-      setStreaming(false);
       inputRef.current?.focus();
     }
   }
@@ -168,7 +168,7 @@ export function ChatWidget({ endpoint = ENDPOINT }: { endpoint?: string }) {
               <h2 id="chat-title" className="chat-panel__title">
                 Ask BarkBytes
               </h2>
-              <p className="chat-panel__sub">Answers from this site only</p>
+              <p className="chat-panel__sub">{waiting ? 'Typing…' : 'Answers from this site only'}</p>
             </div>
             <button type="button" className="chat-panel__close" aria-label="Close chat" onClick={() => show(false)}>
               <Icon name="close" size={18} />
@@ -197,9 +197,12 @@ export function ChatWidget({ endpoint = ENDPOINT }: { endpoint?: string }) {
                 {linkify(t.content)}
               </p>
             ))}
-            {busy && !streaming && (
-              <p className="chat-msg chat-msg--bot chat-msg--typing">
-                <span className="visually-hidden">Assistant is typing</span>
+            {waiting && (
+              <p className="chat-msg chat-msg--bot chat-typing" role="status">
+                <span className="visually-hidden">Assistant is typing…</span>
+                <i aria-hidden="true" />
+                <i aria-hidden="true" />
+                <i aria-hidden="true" />
               </p>
             )}
           </div>

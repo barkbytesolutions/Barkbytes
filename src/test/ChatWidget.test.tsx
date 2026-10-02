@@ -69,6 +69,31 @@ describe('ChatWidget', () => {
     expect(fetchMock.mock.calls[0][0]).toBe('https://chat.example/chat');
   });
 
+  it('shows a typing indicator until the first words arrive', async () => {
+    let push!: (s: string) => void;
+    let end!: () => void;
+    const body = new ReadableStream<Uint8Array>({
+      start(c) {
+        push = (s) => c.enqueue(new TextEncoder().encode(s));
+        end = () => c.close();
+      },
+    });
+    vi.spyOn(globalThis, 'fetch').mockResolvedValue(new Response(body));
+    const user = userEvent.setup();
+    render(<ChatWidget endpoint={ENDPOINT} />);
+    await user.click(screen.getByRole('button', { name: 'Ask BarkBytes' }));
+    await user.click(screen.getByRole('button', { name: 'How does pricing work?' }));
+
+    expect(await screen.findByText('Assistant is typing…')).toBeInTheDocument();
+    expect(screen.getByText('Typing…')).toBeInTheDocument();
+
+    push('Fixed prices.');
+    await screen.findByText('Fixed prices.');
+    expect(screen.queryByText('Assistant is typing…')).not.toBeInTheDocument();
+    end();
+    await waitFor(() => expect(screen.getByText('Answers from this site only')).toBeInTheDocument());
+  });
+
   it('closes on Escape and returns focus to the launcher', async () => {
     const user = userEvent.setup();
     render(<ChatWidget endpoint={ENDPOINT} />);
