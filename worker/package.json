@@ -1,0 +1,16 @@
+{
+  "name": "barkbytes-chat",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy"
+  },
+  "devDependencies": {
+    "wrangler": "^4.143.0"
+  },
+  "dependencies": {
+    "@google/genai": "^2.24.0"
+  }
+}
