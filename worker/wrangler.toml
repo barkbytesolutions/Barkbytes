@@ -1,0 +1,28 @@
+name = "barkbytes-chat"
+main = "src/index.js"
+compatibility_date = "2026-09-01"
+compatibility_flags = ["nodejs_compat"]
+
+[vars]
+# Sites allowed to call the chatbot, comma-separated. Add a custom domain here if you use one.
+ALLOWED_ORIGINS = "https://barkbytes.vercel.app,http://localhost:5173"
+# Gemini model that answers visitors' questions. "gemini-flash-latest" always points to Google's newest Flash model.
+MODEL = "gemini-flash-latest"
+# Backup model, used when the main one is busy or fails before answering.
+FALLBACK_MODEL = "gemini-3.5-flash-lite"
+
+# Run the Worker next to a US Google Cloud region instead of the data centre nearest each
+# visitor. Gemini rejects requests from some locations (e.g. Hong Kong, where many
+# Philippine visitors are routed) with "User location is not supported".
+[placement]
+mode = "targeted"
+region = "gcp:us-central1"
+
+# Per-visitor limit: 10 messages a minute from one IP address.
+[[ratelimits]]
+name = "CHAT_LIMITER"
+namespace_id = "1001"
+
+  [ratelimits.simple]
+  limit = 10
+  period = 60
