@@ -31,7 +31,8 @@ export default {
     if (request.method === "OPTIONS") {
       return new Response(null, { status: cors ? 204 : 403, headers: cors ?? {} });
     }
-    if (request.method !== "POST" || new URL(request.url).pathname !== "/chat") {
+    // "/" too, so a site configured with the bare Worker address still works.
+    if (request.method !== "POST" || !["/chat", "/"].includes(new URL(request.url).pathname)) {
       return text("Not found", 404, cors);
     }
     if (!cors) return text("Origin not allowed", 403);
