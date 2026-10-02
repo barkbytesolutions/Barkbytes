@@ -1,4 +1,5 @@
 import { useCallback, useState } from 'react';
+import { ChatWidget } from './components/ChatWidget';
 import { Contact } from './components/Contact';
 import { Footer } from './components/Footer';
 import { Header } from './components/Header';
@@ -39,6 +40,7 @@ export default function App() {
       </main>
       <Footer onOpenPrivacy={openPrivacy} />
       <PrivacyDialog open={privacyOpen} onClose={() => setPrivacyOpen(false)} />
+      <ChatWidget />
     </>
   );
 }
