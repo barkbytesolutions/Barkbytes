@@ -1,0 +1,22 @@
+.section-header {
+  display: grid;
+  gap: 18px;
+  margin-bottom: clamp(36px, 5vw, 52px);
+}
+
+.section-header__aside {
+  max-width: 42rem;
+}
+
+@media (min-width: 900px) {
+  .section-header--split {
+    grid-template-columns: minmax(0, 1.4fr) minmax(0, 0.9fr);
+    align-items: end;
+    gap: 48px;
+  }
+
+  .section-header--split .section-header__aside {
+    max-width: 26rem;
+    justify-self: end;
+  }
+}

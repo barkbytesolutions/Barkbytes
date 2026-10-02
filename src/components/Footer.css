@@ -1,0 +1,57 @@
+.footer {
+  border-top: 1px solid var(--border-dark);
+  background: var(--navy-900);
+  color: var(--on-dark-muted);
+}
+
+.footer__inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px 32px;
+  padding-block: 32px;
+}
+
+.footer__brand {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 24px;
+}
+
+.footer__brand .logo__word {
+  font-size: 1.125rem;
+}
+
+.footer__brand .logo__mark {
+  width: 28px;
+  height: 28px;
+}
+
+.footer__copy {
+  font-size: 0.9375rem;
+}
+
+.footer__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 24px;
+}
+
+.footer__link {
+  display: inline-block;
+  padding: 4px 0;
+  line-height: 1.5;
+  border: 0;
+  background: none;
+  color: var(--on-dark-muted);
+  font-size: 0.9375rem;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color 0.2s;
+}
+
+.footer__link:hover {
+  color: var(--amber-400);
+}

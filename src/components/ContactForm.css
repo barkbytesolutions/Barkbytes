@@ -1,0 +1,250 @@
+.inquiry {
+  padding: clamp(22px, 3.5vw, 34px);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  color: var(--text);
+  box-shadow: var(--shadow-lg);
+}
+
+.inquiry__fields {
+  display: grid;
+  gap: 18px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  min-width: 0;
+}
+
+.inquiry__fields:disabled {
+  opacity: 0.7;
+}
+
+.inquiry__row {
+  display: grid;
+  gap: 18px;
+}
+
+.inquiry__field {
+  display: grid;
+  gap: 8px;
+  min-width: 0;
+}
+
+.inquiry__label {
+  color: var(--ink);
+  font-size: 0.9375rem;
+  font-weight: 600;
+}
+
+.inquiry__hint {
+  color: var(--muted);
+  font-weight: 400;
+}
+
+.inquiry input[type='text'],
+.inquiry select,
+.inquiry textarea {
+  width: 100%;
+  min-height: 52px;
+  padding: 12px 15px;
+  border: 1.5px solid #cfd4dc;
+  border-radius: var(--radius-sm);
+  background: #fff;
+  color: var(--ink);
+  font-size: 1rem; /* ≥16px prevents iOS zoom on focus */
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
+}
+
+.inquiry textarea {
+  min-height: 120px;
+  resize: vertical;
+  line-height: 1.55;
+}
+
+.inquiry select {
+  appearance: none;
+  padding-right: 44px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' stroke='%23101828' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' viewBox='0 0 24 24'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+  cursor: pointer;
+}
+
+.inquiry ::placeholder {
+  color: #7a8291;
+}
+
+.inquiry input[type='text']:hover,
+.inquiry select:hover,
+.inquiry textarea:hover {
+  border-color: #aab2bf;
+}
+
+.inquiry input[type='text']:focus-visible,
+.inquiry select:focus-visible,
+.inquiry textarea:focus-visible {
+  outline: none;
+  border-color: var(--navy-900);
+  box-shadow: 0 0 0 4px rgb(251 177 36 / 0.45);
+}
+
+.inquiry__field.has-error input,
+.inquiry__field.has-error textarea {
+  border-color: var(--danger);
+}
+
+.inquiry__error {
+  display: flex;
+  gap: 6px;
+  color: var(--danger);
+  font-size: 0.875rem;
+  line-height: 1.4;
+  animation: error-in 0.25s var(--ease-out);
+}
+
+@keyframes error-in {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+}
+
+.inquiry__consent {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 4px 12px;
+  align-items: start;
+  color: var(--muted);
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+.inquiry__consent input {
+  width: 20px;
+  height: 20px;
+  margin: 1px 0 0;
+  accent-color: var(--navy-900);
+  cursor: pointer;
+}
+
+.inquiry__consent label {
+  cursor: pointer;
+}
+
+.inquiry__consent.has-error input {
+  outline: 2px solid var(--danger);
+  outline-offset: 2px;
+}
+
+.inquiry__error--consent {
+  grid-column: 2;
+}
+
+.inquiry__link {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--ink);
+  font-size: inherit;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.inquiry__link:hover {
+  color: #000;
+  text-decoration-thickness: 2px;
+}
+
+.inquiry__submit {
+  width: 100%;
+  margin-top: 24px;
+}
+
+.inquiry__spinner {
+  width: 18px;
+  height: 18px;
+  border: 2.5px solid rgb(255 255 255 / 0.35);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Success state */
+.inquiry--success {
+  display: grid;
+  justify-items: center;
+  gap: 14px;
+  padding-block: clamp(40px, 6vw, 64px);
+  text-align: center;
+  animation: success-in 0.5s var(--ease-out);
+}
+
+.inquiry--success:focus {
+  outline: none;
+}
+
+.inquiry__success-icon {
+  display: grid;
+  place-items: center;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--amber-400);
+  color: var(--navy-900);
+  animation: pop 0.5s 0.1s var(--ease-out) both;
+}
+
+/* Beat `.section--dark h3`: the form card is light even inside the dark section. */
+.inquiry .inquiry__success-title {
+  color: var(--ink);
+  font-size: clamp(1.5rem, 1.2rem + 1vw, 2rem);
+}
+
+.inquiry__success-body {
+  max-width: 30rem;
+  color: var(--muted);
+  overflow-wrap: anywhere;
+}
+
+.inquiry__success-body strong {
+  color: var(--ink);
+}
+
+.inquiry__demo-note {
+  max-width: 30rem;
+  margin-bottom: 8px;
+  padding: 10px 14px;
+  border-radius: var(--radius-sm);
+  background: var(--surface-soft);
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+}
+
+@keyframes success-in {
+  from {
+    opacity: 0;
+    transform: scale(0.98);
+  }
+}
+
+@keyframes pop {
+  from {
+    transform: scale(0.4);
+    opacity: 0;
+  }
+}
+
+@media (min-width: 560px) {
+  .inquiry__row {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

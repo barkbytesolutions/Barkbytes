@@ -1,0 +1,322 @@
+/* ---------- Design tokens ---------- */
+:root {
+  --navy-950: #0b1220;
+  --navy-900: #0f1728;
+  --navy-800: #1a2335;
+  --navy-700: #283349;
+  --amber-400: #fbb124;
+  --amber-500: #f5a30f;
+  --amber-100: #fff3d6;
+
+  --ink: #101828;
+  --text: #374151;
+  --muted: #5b6474;
+  --on-dark: #f8fafc;
+  --on-dark-muted: #c3cad6;
+
+  --surface: #ffffff;
+  --surface-soft: #f4f5f7;
+  --surface-chip: #eceef2;
+  --border: #e4e7ec;
+  --border-dark: #2a3448;
+
+  --success: #16a34a;
+  --danger: #c42b1c;
+
+  --font-display: 'Bricolage Grotesque', 'Segoe UI', system-ui, sans-serif;
+  --font-body: 'IBM Plex Sans', 'Segoe UI', system-ui, -apple-system, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, 'Cascadia Mono', Consolas, monospace;
+
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 22px;
+  --radius-pill: 999px;
+
+  --container: 1180px;
+  --gutter: clamp(16px, 4vw, 24px);
+  --header-h: 72px;
+  --section-y: clamp(64px, 9vw, 112px);
+
+  --shadow-sm: 0 1px 2px rgb(16 24 40 / 0.05);
+  --shadow-md: 0 12px 32px -12px rgb(16 24 40 / 0.18);
+  --shadow-lg: 0 30px 60px -20px rgb(0 0 0 / 0.45);
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ---------- Base ---------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--header-h) + 8px);
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--surface);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  margin: 0;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.035em;
+  text-wrap: balance;
+}
+
+p {
+  margin: 0;
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+:where(ul[role='list'], ol[role='list']) {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+:focus-visible {
+  outline: 3px solid var(--amber-400);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+::selection {
+  background: var(--amber-400);
+  color: var(--navy-900);
+}
+
+/* ---------- Layout utilities ---------- */
+.container {
+  width: 100%;
+  max-width: calc(var(--container) + var(--gutter) * 2);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.section {
+  padding-block: var(--section-y);
+}
+
+.section--soft {
+  background: var(--surface-soft);
+}
+
+.section--dark {
+  background: var(--navy-900);
+  color: var(--on-dark-muted);
+}
+
+.section--dark h1,
+.section--dark h2,
+.section--dark h3 {
+  color: var(--on-dark);
+}
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link {
+  position: absolute;
+  left: 16px;
+  top: -100px;
+  z-index: 100;
+  padding: 10px 16px;
+  border-radius: var(--radius-sm);
+  background: var(--amber-400);
+  color: var(--navy-900);
+  font-weight: 600;
+  text-decoration: none;
+  transition: top 0.2s;
+}
+
+.skip-link:focus {
+  top: 12px;
+}
+
+/* ---------- Typography helpers ---------- */
+.eyebrow {
+  display: inline-block;
+  margin-bottom: 14px;
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.eyebrow--accent {
+  color: var(--amber-400);
+}
+
+.section-title {
+  font-size: clamp(2rem, 1.2rem + 3.4vw, 3.25rem);
+  max-width: 20ch;
+}
+
+.lead {
+  font-size: clamp(1rem, 0.95rem + 0.3vw, 1.125rem);
+  color: var(--muted);
+  line-height: 1.65;
+}
+
+/* ---------- Buttons ---------- */
+.btn {
+  --btn-bg: var(--amber-400);
+  --btn-fg: var(--navy-900);
+  --btn-border: transparent;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 48px;
+  padding: 12px 26px;
+  border: 1.5px solid var(--btn-border);
+  border-radius: var(--radius-pill);
+  background: var(--btn-bg);
+  color: var(--btn-fg);
+  font-weight: 600;
+  font-size: 1rem;
+  line-height: 1.2;
+  text-decoration: none;
+  white-space: nowrap;
+  transition:
+    background-color 0.2s,
+    border-color 0.2s,
+    color 0.2s,
+    transform 0.2s var(--ease-out),
+    box-shadow 0.2s;
+}
+
+.btn:hover {
+  --btn-bg: var(--amber-500);
+  transform: translateY(-1px);
+  box-shadow: 0 10px 24px -10px rgb(251 177 36 / 0.65);
+}
+
+.btn:active {
+  transform: translateY(0);
+}
+
+.btn--lg {
+  min-height: 56px;
+  padding: 14px 30px;
+  font-size: 1.0625rem;
+}
+
+.btn--sm {
+  min-height: 42px;
+  padding: 9px 20px;
+  font-size: 0.9375rem;
+}
+
+.btn--ghost-dark {
+  --btn-bg: transparent;
+  --btn-fg: var(--on-dark);
+  --btn-border: rgb(255 255 255 / 0.28);
+}
+
+.btn--ghost-dark:hover {
+  --btn-bg: rgb(255 255 255 / 0.06);
+  --btn-border: rgb(255 255 255 / 0.6);
+  box-shadow: none;
+}
+
+.btn--dark {
+  --btn-bg: var(--navy-900);
+  --btn-fg: var(--on-dark);
+}
+
+.btn--dark:hover {
+  --btn-bg: var(--navy-700);
+  box-shadow: 0 10px 24px -12px rgb(15 23 40 / 0.6);
+}
+
+.btn[disabled] {
+  cursor: progress;
+  opacity: 0.85;
+  transform: none;
+}
+
+/* ---------- Scroll reveal ---------- */
+.reveal-ready [data-reveal] {
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity 0.7s var(--ease-out),
+    transform 0.7s var(--ease-out);
+  transition-delay: calc(var(--reveal-i, 0) * 70ms);
+}
+
+.reveal-ready [data-reveal].is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    transition-delay: 0ms !important;
+  }
+
+  .reveal-ready [data-reveal] {
+    opacity: 1;
+    transform: none;
+  }
+}

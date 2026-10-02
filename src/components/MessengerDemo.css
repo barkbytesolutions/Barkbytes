@@ -1,0 +1,325 @@
+.demo {
+  position: relative;
+  width: 100%;
+  max-width: 500px;
+  margin-inline: auto;
+  padding-bottom: 56px; /* room for the overlapping notification */
+}
+
+.demo__card {
+  position: relative;
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  color: var(--ink);
+  box-shadow: var(--shadow-lg);
+  padding: 20px 20px 16px;
+}
+
+.demo__head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--border);
+}
+
+.demo__avatar {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: var(--navy-900);
+  color: #fff;
+  font-size: 0.875rem;
+  font-weight: 700;
+}
+
+.demo__who {
+  flex: 1;
+  min-width: 0;
+}
+
+.demo__name {
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.demo__status {
+  color: var(--muted);
+  font-size: 0.8125rem;
+}
+
+.demo__tag {
+  align-self: flex-start;
+  padding: 3px 8px;
+  border-radius: 6px;
+  background: var(--surface-chip);
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.06em;
+}
+
+.demo__thread {
+  display: grid;
+  gap: 12px;
+  padding-top: 16px;
+}
+
+.demo__slot {
+  position: relative;
+  display: flex;
+}
+
+.demo__slot--bot {
+  justify-content: flex-end;
+}
+
+.demo__bubble {
+  max-width: 86%;
+  padding: 10px 14px;
+  border-radius: 16px;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  opacity: 0;
+  transform: translateY(8px) scale(0.98);
+  transition:
+    opacity 0.35s var(--ease-out),
+    transform 0.35s var(--ease-out);
+}
+
+.demo__slot--customer .demo__bubble {
+  border-bottom-left-radius: 6px;
+  background: var(--surface-chip);
+  transform-origin: left bottom;
+}
+
+.demo__slot--bot .demo__bubble {
+  border-bottom-right-radius: 6px;
+  background: var(--navy-900);
+  color: #fff;
+  transform-origin: right bottom;
+}
+
+.demo__bubble.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+.demo__typing {
+  position: absolute;
+  top: 0;
+  display: inline-flex;
+  gap: 4px;
+  padding: 14px 16px;
+  border-radius: 16px;
+  background: var(--surface-chip);
+}
+
+.demo__slot--customer .demo__typing {
+  left: 0;
+}
+
+.demo__slot--bot .demo__typing {
+  right: 0;
+  background: var(--navy-900);
+}
+
+.demo__typing i {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--muted);
+  animation: typing 1.1s infinite ease-in-out;
+}
+
+.demo__slot--bot .demo__typing i {
+  background: #aab4c4;
+}
+
+.demo__typing i:nth-child(2) {
+  animation-delay: 0.15s;
+}
+
+.demo__typing i:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+@keyframes typing {
+  0%,
+  60%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.5;
+  }
+  30% {
+    transform: translateY(-4px);
+    opacity: 1;
+  }
+}
+
+.demo__footer {
+  display: flex;
+  justify-content: center;
+  min-height: 40px;
+  margin-top: 14px;
+  align-items: center;
+}
+
+.demo__hint {
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+}
+
+.demo__quick,
+.demo__replay {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 38px;
+  padding: 7px 16px;
+  border-radius: var(--radius-pill);
+  font-size: 0.875rem;
+  font-weight: 600;
+  transition:
+    background-color 0.2s,
+    transform 0.2s var(--ease-out);
+}
+
+.demo__quick {
+  border: 1.5px solid var(--navy-900);
+  background: var(--surface);
+  color: var(--navy-900);
+  animation: pulse 1.6s infinite;
+}
+
+.demo__quick:hover {
+  background: var(--navy-900);
+  color: #fff;
+}
+
+.demo__replay {
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--muted);
+}
+
+.demo__replay:hover {
+  background: var(--surface-soft);
+  color: var(--ink);
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgb(15 23 40 / 0.25);
+  }
+  50% {
+    box-shadow: 0 0 0 6px rgb(15 23 40 / 0);
+  }
+}
+
+/* Notification toast that overlaps the card bottom */
+.demo__notice {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 18px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 18px;
+  border: 1px solid var(--border-dark);
+  border-radius: var(--radius-md);
+  background: var(--navy-800);
+  box-shadow: var(--shadow-lg);
+  opacity: 0;
+  transform: translateY(12px);
+  transition:
+    opacity 0.45s var(--ease-out),
+    transform 0.45s var(--ease-out);
+}
+
+.demo__notice.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+.demo__bell {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: var(--amber-400);
+  color: var(--navy-900);
+}
+
+.demo__notice.is-saved .demo__bell {
+  animation: ring 0.6s var(--ease-out);
+}
+
+@keyframes ring {
+  20% {
+    transform: rotate(-14deg);
+  }
+  40% {
+    transform: rotate(12deg);
+  }
+  60% {
+    transform: rotate(-8deg);
+  }
+  80% {
+    transform: rotate(4deg);
+  }
+}
+
+.demo__notice-title {
+  color: var(--on-dark);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.demo__notice-body {
+  color: var(--on-dark-muted);
+  font-size: 0.8125rem;
+  line-height: 1.45;
+}
+
+/* On narrow screens the notice wraps to more lines, so stack it under the
+   card (with a slight overlap) instead of absolutely positioning it. */
+@media (max-width: 560px) {
+  .demo {
+    padding-bottom: 0;
+  }
+
+  .demo__card {
+    padding-bottom: 30px;
+  }
+
+  .demo__notice {
+    position: relative;
+    left: auto;
+    margin: -18px 0 0 12px;
+  }
+}
+
+@media (max-width: 420px) {
+  .demo__card {
+    padding: 16px 14px 30px;
+  }
+
+  .demo__bubble {
+    font-size: 0.875rem;
+  }
+
+  .demo__notice {
+    margin-left: 8px;
+    padding: 12px 14px;
+  }
+}

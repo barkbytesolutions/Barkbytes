@@ -1,0 +1,116 @@
+.work {
+  border-bottom: 1px solid var(--border);
+}
+
+.work__grid {
+  display: grid;
+  gap: 24px;
+}
+
+.work__grid > li {
+  display: flex;
+  min-width: 0;
+}
+
+.project-card {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  box-shadow: var(--shadow-sm);
+  transition:
+    box-shadow 0.35s var(--ease-out),
+    transform 0.35s var(--ease-out);
+}
+
+.project-card:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-4px);
+}
+
+.project-card__visual {
+  position: relative;
+  margin: 0;
+  overflow: hidden;
+  height: clamp(300px, 30vw, 340px);
+  background:
+    radial-gradient(circle at 20% 15%, rgb(255 255 255 / 0.7), transparent 45%),
+    linear-gradient(135deg, #e3e7ee, #d6dce6);
+}
+
+.project-card__visual--bot {
+  background:
+    radial-gradient(circle at 80% 20%, rgb(251 177 36 / 0.22), transparent 45%),
+    linear-gradient(135deg, #e6e9ef, #d9dfe8);
+}
+
+.project-card__art {
+  height: 100%;
+}
+
+.project-card__caption {
+  position: absolute;
+  left: 14px;
+  bottom: 12px;
+  padding: 3px 8px;
+  border-radius: 6px;
+  background: rgb(255 255 255 / 0.8);
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+}
+
+.project-card__body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  padding: clamp(22px, 3vw, 32px);
+}
+
+.project-card__client {
+  margin-bottom: 12px;
+  font-size: 0.75rem;
+}
+
+.project-card__title {
+  font-size: clamp(1.375rem, 1.15rem + 0.8vw, 1.75rem);
+  line-height: 1.18;
+  letter-spacing: -0.025em;
+}
+
+.project-card__desc {
+  margin-top: 14px;
+  color: var(--muted);
+  font-size: 1.0625rem;
+}
+
+.project-card__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 18px;
+}
+
+.project-card__tags li {
+  padding: 5px 11px;
+  border-radius: 8px;
+  background: var(--surface-chip);
+  color: var(--ink);
+  font-size: 0.875rem;
+}
+
+.project-card__result {
+  margin-top: auto;
+  padding-top: 20px;
+  color: var(--ink);
+  font-weight: 600;
+}
+
+@media (min-width: 900px) {
+  .work__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
