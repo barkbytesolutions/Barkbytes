@@ -59,6 +59,16 @@ describe('ChatWidget', () => {
     expect(body.messages.map((m: { role: string }) => m.role)).toEqual(['user', 'user']);
   });
 
+  it('adds the /chat path when the endpoint is a bare Worker address', async () => {
+    const fetchMock = vi.spyOn(globalThis, 'fetch').mockResolvedValue(new Response(streamOf('Hi!')));
+    const user = userEvent.setup();
+    render(<ChatWidget endpoint="https://chat.example/" />);
+    await user.click(screen.getByRole('button', { name: 'Ask BarkBytes' }));
+    await user.click(screen.getByRole('button', { name: 'How does pricing work?' }));
+    await screen.findByText('Hi!');
+    expect(fetchMock.mock.calls[0][0]).toBe('https://chat.example/chat');
+  });
+
   it('closes on Escape and returns focus to the launcher', async () => {
     const user = userEvent.setup();
     render(<ChatWidget endpoint={ENDPOINT} />);

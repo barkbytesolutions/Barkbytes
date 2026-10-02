@@ -4,10 +4,17 @@ import './ChatWidget.css';
 
 /*
  * "Ask BarkBytes" chat. Talks to the Cloudflare Worker in /worker, which
- * streams Gemini replies grounded in src/data/content.ts. Renders nothing
- * until VITE_CHAT_ENDPOINT is set (see worker/README.md).
+ * streams Gemini replies grounded in src/data/content.ts. Set
+ * VITE_CHAT_ENDPOINT to point at a different Worker (e.g. a local one).
  */
-const ENDPOINT: string = import.meta.env.VITE_CHAT_ENDPOINT ?? '';
+const DEFAULT_WORKER = 'https://barkbytes-chat.albertochristianjoshua.workers.dev';
+const ENDPOINT: string = import.meta.env.VITE_CHAT_ENDPOINT || DEFAULT_WORKER;
+
+/** Accepts the Worker's address with or without the /chat path. */
+function toChatUrl(base: string): string {
+  const url = base.trim().replace(/\/+$/, '');
+  return url.endsWith('/chat') ? url : `${url}/chat`;
+}
 const MAX_CHARS = 800;
 const HINT_DELAY = 1500;
 
@@ -81,7 +88,7 @@ export function ChatWidget({ endpoint = ENDPOINT }: { endpoint?: string }) {
     const update = (content: string, error = false) => setTurns([...history, { role: 'assistant', content, error }]);
 
     try {
-      const res = await fetch(endpoint, {
+      const res = await fetch(toChatUrl(endpoint), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ messages: history.map(({ role, content }) => ({ role, content })) }),

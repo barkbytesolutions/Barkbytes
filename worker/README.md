@@ -21,11 +21,7 @@ A small Cloudflare Worker that powers the "Ask BarkBytes" chat on the landing pa
    npm run deploy
    ```
    Wrangler prints the Worker's address, something like `https://barkbytes-chat.<your-subdomain>.workers.dev`.
-6. **Turn the chat on.** Set `VITE_CHAT_ENDPOINT` to that address plus `/chat` wherever the site is built: in Vercel → Project → Settings → Environment Variables for production, or in a git-ignored `.env.local` locally (copy `.env.example`):
-   ```
-   VITE_CHAT_ENDPOINT=https://barkbytes-chat.<your-subdomain>.workers.dev/chat
-   ```
-   Rebuild the site. The chat button stays hidden while this is empty.
+6. **Point the site at it.** The site calls `https://barkbytes-chat.albertochristianjoshua.workers.dev` by default (`DEFAULT_WORKER` in `src/components/ChatWidget.tsx`). If the Worker's address ever changes, update that line, or set `VITE_CHAT_ENDPOINT` in Vercel to override it.
 
 ## Updating what the bot knows
 
@@ -39,7 +35,7 @@ Create `worker/.dev.vars` (git-ignored) containing `GEMINI_API_KEY=your-key`, th
 
 ```bash
 npm run dev                                                   # in worker/: Worker on http://127.0.0.1:8787
-VITE_CHAT_ENDPOINT=http://127.0.0.1:8787/chat npm run dev     # in the repo root: site on http://localhost:5173
+VITE_CHAT_ENDPOINT=http://127.0.0.1:8787 npm run dev          # in the repo root: site on http://localhost:5173
 ```
 
 ## Cost
