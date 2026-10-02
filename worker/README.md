@@ -15,13 +15,13 @@ A small Cloudflare Worker that powers the "Ask BarkBytes" chat on the landing pa
    ```bash
    npx wrangler secret put GEMINI_API_KEY
    ```
-4. **Allow the live site.** `ALLOWED_ORIGINS` in `wrangler.toml` lists the sites that may call the chatbot. It only allows `http://localhost:5173` (Vite's dev server) for now, so append the live address, e.g. `"https://your-domain.ph,http://localhost:5173"`.
+4. **Check the allowed sites.** `ALLOWED_ORIGINS` in `wrangler.toml` lists the sites that may call the chatbot: `https://barkbytes.vercel.app` and `http://localhost:5173` (Vite's dev server). If you add a custom domain later, append it and deploy again. Vercel preview links (the long `…-git-….vercel.app` addresses) aren't allowed, so the chat only works on the main address.
 5. **Deploy:**
    ```bash
    npm run deploy
    ```
    Wrangler prints the Worker's address, something like `https://barkbytes-chat.<your-subdomain>.workers.dev`.
-6. **Turn the chat on.** Set `VITE_CHAT_ENDPOINT` to that address plus `/chat` wherever the site is built: in your host's environment variables (Vercel, Netlify, …) for production, or in a git-ignored `.env.local` locally (copy `.env.example`):
+6. **Turn the chat on.** Set `VITE_CHAT_ENDPOINT` to that address plus `/chat` wherever the site is built: in Vercel → Project → Settings → Environment Variables for production, or in a git-ignored `.env.local` locally (copy `.env.example`):
    ```
    VITE_CHAT_ENDPOINT=https://barkbytes-chat.<your-subdomain>.workers.dev/chat
    ```

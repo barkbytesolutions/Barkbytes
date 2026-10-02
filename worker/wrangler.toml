@@ -4,8 +4,8 @@ compatibility_date = "2026-09-01"
 compatibility_flags = ["nodejs_compat"]
 
 [vars]
-# Sites allowed to call the chatbot, comma-separated. Add the live site's address (https://…) before deploying.
-ALLOWED_ORIGINS = "http://localhost:5173"
+# Sites allowed to call the chatbot, comma-separated. Add a custom domain here if you use one.
+ALLOWED_ORIGINS = "https://barkbytes.vercel.app,http://localhost:5173"
 # Gemini model that answers visitors' questions. "gemini-flash-latest" always points to Google's newest Flash model.
 MODEL = "gemini-flash-latest"
 # Backup model, used when the main one is busy or fails before answering.
